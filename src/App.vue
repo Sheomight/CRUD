@@ -1,30 +1,71 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <header>
+
+  </header>
+  <div v-if="userStore.tabVersion == 1">
+    <autorisation-form class="autorisation" :current-id="userStore.loginData.length" />
+  </div>
+  <div class="editMode" v-else-if="userStore.tabVersion == 2">
+    <user-form @create="addNewUser" :current-id="userList.length" />
+    <user-list :userList="this.userList" @remove="removeUser" />
+  </div>
+  <div v-else>
+    <h1>Hello World!!</h1>
+  </div>
 </template>
 
+<script>
+import { useUserStore } from './store/userStore'
+import AutorisationForm from './components/AutorisationForm.vue'
+import UserForm from './components/UserForm.vue'
+import UserList from './components/UserList.vue'
+import ActionButton from './components/UI/ActionButton.vue'
+
+export default {
+  components: {
+    AutorisationForm,
+    UserForm,
+    UserList,
+    ActionButton,
+  },
+  data() {
+    return {
+      userStore: useUserStore(),
+      userList: [],
+
+    }
+  },
+  methods: {
+    addNewUser(user) {
+      this.userList.push(user);
+    },
+    removeUser(user) {
+      this.userList.splice(this.userList.indexOf(user), 1)
+    }
+
+  },
+  mounted() {
+    this.userList = this.userStore.users
+  }
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+  box-sizing: border-box;
 }
 
-nav {
-  padding: 30px;
+body {
+  padding: 20px 30px;
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+header {
+  display: flex;
+  justify-content: space-between;
 }
 
-nav a.router-link-exact-active {
-  color: #42b983;
+.autorisation {
+  width: 30%;
+  margin: 0 auto;
 }
 </style>
