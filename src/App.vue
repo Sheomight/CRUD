@@ -32,6 +32,6 @@ export default {
 }
 
 body {
-  background-color: azure;
+  background-color: rgb(145, 188, 253);
 }
 </style>

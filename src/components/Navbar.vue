@@ -16,7 +16,6 @@
 import router from '@/router/router';
 import { useAuthorizationStore } from '@/store/authorizationStore';
 
-
 export default {
     data() {
         return {
@@ -28,7 +27,8 @@ export default {
             this.authorizationStore.userToken = null;
             router.push('/login');
         }
-    }
+    },
+
 }
 </script>
 

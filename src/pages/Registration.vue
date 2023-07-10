@@ -2,12 +2,12 @@
     <form @submit.prevent class="form">
         <div class="form__inner">
             <legend>Registration</legend>
-            <label>Login</label>
-            <input type="text" placeholder="Create your login" v-model="login">
             <label>Email</label>
             <input type="email" placeholder="Enter your email" v-model="email">
             <label>Password</label>
-            <input type="password" placeholder="Create your password" v-model="password">
+            <input type="password" placeholder="Create your password" v-model="password" :class="{
+                'danger': this.password != this.passwordConfirm
+            }">
             <label>Confirm your password</label>
             <input type="password" placeholder="Repeat your password" v-model="passwordConfirm">
             <button @click="registration">Register</button>
@@ -25,7 +25,6 @@ import { useAuthorizationStore } from '@/store/authorizationStore';
 export default {
     data() {
         return {
-            login: '',
             email: '',
             password: '',
             passwordConfirm: '',
@@ -34,9 +33,11 @@ export default {
     },
     methods: {
         registration() {
-            this.loginStore.push({ email: this.email, password: this.password });
-            router.push('/login')
-        }
+            if (this.password == this.passwordConfirm) {
+                this.loginStore.push({ email: this.email, password: this.password });
+                router.push('/login')
+            }
+        },
     }
 }
 </script>
@@ -102,6 +103,10 @@ button:hover {
 
 span {
     font-size: 14px;
+}
+
+.danger {
+    background-color: indianred;
 }
 
 .hypertext-btn {

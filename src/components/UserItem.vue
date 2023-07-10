@@ -78,6 +78,8 @@ input {
     color: black;
     border: none;
     border-bottom: 2px solid teal;
+    width: 90%;
+    height: 100%;
 }
 
 input:focus {

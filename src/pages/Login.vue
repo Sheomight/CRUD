@@ -3,10 +3,11 @@
         <div class="form__inner">
             <legend>Authorization</legend>
             <label>Login</label>
-            <input type="text" placeholder="Enter your login" v-model="login">
+            <input type="text" placeholder="Enter your login" v-model="email">
             <label>Password</label>
             <input type="password" placeholder="Enter your password" v-model="password">
-            <button @click="logIn">Login in</button>
+            <button @click="logIn">Login in #1</button>
+            <button @click="authorization">Login in #2</button>
             <span>Don't have an account? <a class="hypertext-btn" @click="$router.push('/registration')">Register
                     here!</a></span>
         </div>
@@ -21,7 +22,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            login: 'john@mail.com',
+            email: 'john@mail.com',
             password: 'changeme',
             authorizationStore: useAuthorizationStore(),
             loginData: useAuthorizationStore().loginData,
@@ -29,15 +30,19 @@ export default {
     },
     methods: {
         authorization() {
-            this.loginData.filter(user => JSON.stringify(user) == JSON.stringify({ login: this.login, password: this.password })).length > 0;
+            if (this.loginData.filter(user => JSON.stringify(user) == JSON.stringify({ email: this.email, password: this.password })).length > 0) {
+                this.authorizationStore.userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNDM0NTY3ODkwIiwibmFtZSI6IlRlc3QgVXNlciIsImlhdCI6MTUxNjIzOTAyMn0.Z5nZb8tvEm2q4gkj2oDK2x2ZdxoBrkOz0SXE1OK5ScQ';
+                console.log(this.authorizationStore.userToken);
+                router.push('/usersbase');
+            }
         },
         async logIn() {
             let url = 'https://api.escuelajs.co/api/v1/auth/login';
 
-            let response = await axios.post(url, { email: this.login, password: this.password })
+            let response = await axios.post(url, { email: this.email, password: this.password })
                 .then(response => {
                     this.authorizationStore.userToken = { accessToken: response.data.access_token, refreshToken: response.data.refresh_token };
-                    console.log(this.authorizationStore.userToken.length);
+                    console.log(this.authorizationStore.userToken);
                     router.push('/usersbase');
 
                 })

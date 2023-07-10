@@ -17,4 +17,10 @@
     justify-content: space-around;
     height: 200px;
 }
+
+h1 {
+    color: azure;
+    font-weight: 700;
+    font-size: 60px;
+}
 </style>

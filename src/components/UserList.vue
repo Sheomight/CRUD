@@ -2,9 +2,9 @@
     <table class="userlist">
         <thead class="userlist__header">
             <tr>
-                <td>Имя пользователя</td>
-                <td>Email пользователя</td>
-                <td>Действия</td>
+                <td>User name</td>
+                <td>User Email</td>
+                <td>Actions</td>
             </tr>
         </thead>
         <tbody>

@@ -5,7 +5,15 @@ export const useAuthorizationStore = defineStore('authorizationStore', () => {
     const loginData = ref([
         {
             email: 'john@mail.com',
-            password: 'changeme',
+            password: 'changeme'
+        },
+        {
+            email: 'nike-jam@mail.com',
+            password: 'qwerty'
+        },
+        {
+            email: 'test@mail.com',
+            password: 'testacc'
         },
     ]);
 
