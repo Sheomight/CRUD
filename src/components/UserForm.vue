@@ -1,7 +1,7 @@
 <template>
-    <div class="form">
-        <h1>Add new user</h1>
-        <form id="user-add" @submit.prevent>
+    <div>
+        <form class="form" id="user-add" @submit.prevent>
+            <h1 class="form__title">Add new user</h1>
             <div class="form__group">
                 <label>Name</label>
                 <input type="text" id="user-name" placeholder="Enter user name" v-model="user.name">
@@ -54,17 +54,21 @@ export default {
 <style scoped>
 .form {
     width: 600px;
-    height: 320px;
+    height: 360px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 auto;
+    justify-content: center;
+    margin: 30px auto;
     border: 1px dotted gray;
 }
+
+.form__title {}
 
 .form__group {
     display: flex;
     flex-direction: column;
+    margin-top: 10px;
     height: 70px;
 }
 </style>

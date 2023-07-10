@@ -1,27 +1,38 @@
 <template>
-    <div v-if="!user.isEditing" class="user-slot">
-        {{ user.name + ' ' + user.email }}
-        <span class="action-btn">
+    <tr v-if="!user.isEditing" class="user">
+        <td class="user__name">
+            {{ user.name }}
+        </td>
+        <td class="user__email">
+            {{ user.email }}
+        </td>
+        <td class="action-btn">
             <action-btn class="edit-btn" @click="editUser(user)">E</action-btn>
             <action-btn class="danger-btn" @click="$emit('remove', user)">D</action-btn>
-        </span>
-    </div>
-    <div v-else class="user-slot">
-        <label>Name</label>
-        <input v-model="changedName">
-        <label>Email</label>
-        <input v-model="changedEmail">
-        <span class="action-btn">
+        </td>
+    </tr>
+    <tr v-else class="user">
+        <td class="user__name">
+            <input v-model="changedName">
+        </td>
+        <td class="user__email">
+            <input v-model="changedEmail">
+        </td>
+        <td class="action-btn">
             <action-btn class="confirm-btn" @click="confirmEditing(user)">Ok</action-btn>
             <action-btn class="danger-btn" @click="stopEditing(user)">X</action-btn>
-        </span>
-    </div>
+        </td>
+    </tr>
 </template>
 
 
 <script>
+import ActionButton from '@/components/UI/ActionButton.vue';
 
 export default {
+    components: {
+        ActionButton
+    },
     props: {
         user: {
             type: Object,
@@ -44,11 +55,11 @@ export default {
         confirmEditing(user) {
             user.name = this.changedName;
             user.email = this.changedEmail;
-            this.changedEmail = '';
-            this.changedName = '';
             this.stopEditing(user);
         },
         stopEditing(user) {
+            this.changedEmail = '';
+            this.changedName = '';
             user.isEditing = false;
         },
     }
@@ -57,18 +68,25 @@ export default {
 
 
 <style  scoped>
-.user-slot {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+td {
+    border: 1px solid black;
+    padding: 15px 10px;
+}
+
+.user {
     border: 1px dotted gray;
     padding: 20px;
 }
 
+.user__name {
+    width: 45%;
+}
+
+.user__email {
+    width: 45%;
+}
+
 .action-btn {
-    width: 120px;
     display: flex;
     justify-content: space-between;
 }

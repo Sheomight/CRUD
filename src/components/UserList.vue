@@ -1,9 +1,16 @@
 <template>
-    <div class="userlist">
-        <div v-for="user of userList" :key="user.id">
-            <user-item :user="user" @remove="$emit('remove', post)" />
-        </div>
-    </div>
+    <table class="userlist">
+        <thead class="userlist__header">
+            <tr>
+                <td>Имя пользователя</td>
+                <td>Email пользователя</td>
+                <td>Действия</td>
+            </tr>
+        </thead>
+        <tbody>
+            <user-item v-for="user of userList" :key="user.id" :user="user" @remove="$emit('remove', post)" />
+        </tbody>
+    </table>
 </template>
 
 <script>
@@ -35,6 +42,13 @@ export default {
 <style scoped>
 .userlist {
     margin: 20px auto;
-    width: 60vw;
+    width: 80%;
+    background-color: aquamarine;
+    border: 2px solid black;
+}
+
+td {
+    border: 1px solid black;
+    text-align: center;
 }
 </style>
