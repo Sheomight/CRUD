@@ -1,6 +1,7 @@
 <template>
-    <h1>Welcome to the CRUD app</h1>
-    <p>To continue, create new account or login if you already have one</p>
+    <div class="content">
+        <h1>Welcome to the CRUD app</h1>
+    </div>
 </template>
 
 <script>
@@ -8,4 +9,12 @@
 </script>
 
 
-<style scoped></style>
+<style scoped>
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 200px;
+}
+</style>

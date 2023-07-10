@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="">
+    <form @submit.prevent="" class="form">
         <div class="form__inner">
             <legend>Authorization</legend>
             <label>Login</label>
@@ -7,22 +7,24 @@
             <label>Password</label>
             <input type="password" placeholder="Enter your password" v-model="password">
             <button @click="logIn">Login in</button>
-            <span>Don't have account? <a class="hypertext-btn" @click="$router.push('/registration')">Register
+            <span>Don't have an account? <a class="hypertext-btn" @click="$router.push('/registration')">Register
                     here!</a></span>
         </div>
     </form>
 </template>
 
 <script>
-import { useLoginStore } from '@/store/loginStore';
+import { useAuthorizationStore } from '@/store/authorizationStore';
 import router from '@/router/router';
+import axios from 'axios';
+
 export default {
     data() {
         return {
-            login: '',
-            password: '',
-            loginStore: useLoginStore(),
-            loginData: useLoginStore().loginData,
+            login: 'john@mail.com',
+            password: 'changeme',
+            authorizationStore: useAuthorizationStore(),
+            loginData: useAuthorizationStore().loginData,
         }
     },
     methods: {
@@ -31,22 +33,19 @@ export default {
         },
         async logIn() {
             let url = 'https://api.escuelajs.co/api/v1/auth/login';
-            let response = await fetch(url, {
-                method: 'POST',
-                body: JSON.stringify({
-                    email: this.login,
-                    password: this.password
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then(response => response.json())
-                .catch(error => console.log('Error:', error));
-            this.loginStore.accessToken = response.access_token;
-            this.loginStore.refreshToken = response.refreshToken_token;
-            router.push('/usersbase')
+
+            let response = await axios.post(url, { email: this.login, password: this.password })
+                .then(response => {
+                    this.authorizationStore.userToken = { accessToken: response.data.access_token, refreshToken: response.data.refresh_token };
+                    console.log(this.authorizationStore.userToken.length);
+                    router.push('/usersbase');
+
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         }
+
     },
 }
 </script>
@@ -58,18 +57,61 @@ legend {
     font-size: 24px;
 }
 
+.form {
+    display: flex;
+    justify-content: center;
+}
+
 .form__inner {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    height: 350px;
-    border: 1px solid black;
+    height: 450px;
+    width: 450px;
     padding: 20px;
+    box-shadow: 0px 5px 20px 2px blue;
+    margin-top: 30px;
+    background-color: rgb(0, 143, 209);
+    color: #fff;
+
+}
+
+input {
+    width: 80%;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: none;
+    border-bottom: 2px solid rgb(0, 77, 200);
+    color: rgb(255, 255, 255);
+}
+
+input::placeholder {
+    color: #c8c8c8;
+}
+
+input:focus {
+    outline: none;
+    border-bottom: 5px solid rgb(0, 77, 200);
+
+}
+
+button {
+    width: 150px;
+    height: 50px;
+    background-color: rgb(0, 53, 139);
+    border: 1px solid rgb(14, 95, 156);
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgb(0, 16, 139);
+    border: 1px solid rgb(0, 49, 139);
 }
 
 span {
-    font-size: 11px;
+    font-size: 14px;
 }
 
 .hypertext-btn {
@@ -77,7 +119,7 @@ span {
     padding: 0;
     margin: 0;
     border: none;
-    background-color: white;
+    background-color: none;
     color: blue;
     cursor: pointer;
 }

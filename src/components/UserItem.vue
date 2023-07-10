@@ -70,7 +70,20 @@ export default {
 <style  scoped>
 td {
     border: 1px solid black;
-    padding: 15px 10px;
+    padding: 10px 20px;
+}
+
+input {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: black;
+    border: none;
+    border-bottom: 2px solid teal;
+}
+
+input:focus {
+    background-color: rgba(0, 0, 0, 0.2);
+    outline: none;
+    border-bottom: 3px solid teal;
 }
 
 .user {
@@ -88,7 +101,9 @@ td {
 
 .action-btn {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
 }
 
 .danger-btn {

@@ -7,7 +7,7 @@
 
 <script>
 import Navbar from "@/components/Navbar"
-import { useLoginStore } from "@/store/loginStore";
+import { useAuthorizationStore } from "@/store/authorizationStore";
 import router from "./router/router";
 
 export default {
@@ -17,15 +17,10 @@ export default {
   },
   data() {
     return {
-      loginStore: useLoginStore(),
-      accessToken: useLoginStore().accessToken
+      loginStore: useAuthorizationStore(),
     }
   },
-  watch: {
-    accessToken: function () {
 
-    }
-  }
 
 }
 </script>

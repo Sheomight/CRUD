@@ -43,7 +43,7 @@ export default {
 .userlist {
     margin: 20px auto;
     width: 80%;
-    background-color: aquamarine;
+    background-color: rgb(114, 229, 255);
     border: 2px solid black;
 }
 
