@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="" class="form">
+    <form @submit.prevent class="form">
         <div class="form__inner">
             <legend>Authorization</legend>
             <label>Login</label>
@@ -34,21 +34,29 @@ export default {
                 this.authorizationStore.userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNDM0NTY3ODkwIiwibmFtZSI6IlRlc3QgVXNlciIsImlhdCI6MTUxNjIzOTAyMn0.Z5nZb8tvEm2q4gkj2oDK2x2ZdxoBrkOz0SXE1OK5ScQ';
                 console.log(this.authorizationStore.userToken);
                 router.push('/usersbase');
+                router.beforeEach((to, from, next) => {
+                    if (to.path !== '/login' && !this.authorizationStore.userToken) next({ path: '/login' })
+                    else next()
+                })
             }
         },
         async logIn() {
             let url = 'https://api.escuelajs.co/api/v1/auth/login';
 
-            let response = await axios.post(url, { email: this.email, password: this.password })
-                .then(response => {
+            try {
+                const response = await axios.post(url, { email: this.email, password: this.password });
+                if (response && response.data) {
                     this.authorizationStore.userToken = { accessToken: response.data.access_token, refreshToken: response.data.refresh_token };
                     console.log(this.authorizationStore.userToken);
                     router.push('/usersbase');
-
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+                    router.beforeEach((to, from, next) => {
+                        if (to.path !== '/login' && !this.authorizationStore.userToken) next({ path: '/login' })
+                        else next()
+                    })
+                }
+            } catch (e) {
+                console.error(e);
+            }
         }
 
     },
@@ -106,6 +114,7 @@ button {
     height: 50px;
     background-color: rgb(0, 53, 139);
     border: 1px solid rgb(14, 95, 156);
+    border-radius: 15px;
     color: white;
     cursor: pointer;
 }

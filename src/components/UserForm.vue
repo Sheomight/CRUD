@@ -68,9 +68,9 @@ export default {
     height: 450px;
     width: 450px;
     padding: 20px;
-    box-shadow: 0px 5px 20px 2px blue;
+    box-shadow: 0px 5px 20px 2px #3266cc;
     margin: 30px 0;
-    background-color: rgb(0, 143, 209);
+    background-color: rgb(58, 148, 227);
     color: #fff;
 }
 
@@ -106,6 +106,7 @@ button {
     height: 50px;
     background-color: rgb(0, 53, 139);
     border: 1px solid rgb(14, 95, 156);
+    border-radius: 15px;
     color: white;
     cursor: pointer;
 }

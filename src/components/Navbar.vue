@@ -25,6 +25,7 @@ export default {
     methods: {
         logout() {
             this.authorizationStore.userToken = null;
+            console.log(this.authorizationStore.userToken);
             router.push('/login');
         }
     },
@@ -37,7 +38,7 @@ export default {
 .navbar {
     height: 70px;
     background-color: rgb(58, 148, 227);
-    box-shadow: 2px 2px 4px gray;
+    box-shadow: 2px 2px 4px rgb(52, 76, 148);
     display: flex;
     align-items: center;
     padding: 0 15px;
@@ -63,6 +64,7 @@ export default {
     height: 50px;
     background-color: rgb(0, 53, 139);
     border: 1px solid rgb(14, 95, 156);
+    border-radius: 15px;
     color: white;
     cursor: pointer;
 }

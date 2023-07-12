@@ -10,4 +10,4 @@ components.forEach(component => {
     app.component(component.name, component)
 });
 
-app.use(router).use(pinia).mount('#app');
+app.use(pinia).use(router).mount('#app');

@@ -92,6 +92,7 @@ button {
     height: 50px;
     background-color: rgb(0, 53, 139);
     border: 1px solid rgb(14, 95, 156);
+    border-radius: 15px;
     color: white;
     cursor: pointer;
 }

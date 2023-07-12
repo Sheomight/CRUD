@@ -2,8 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Main from "@/pages/Main";
 import Login from "@/pages/Login";
 import Registration from "@/pages/Registration";
-import CreateUser from "@/pages/CreateUser"
-
+import CreateUser from "@/pages/CreateUser";
 
 const routes = [
     {
@@ -20,7 +19,7 @@ const routes = [
     },
     {
         path: '/usersbase',
-        component: CreateUser
+        component: CreateUser,
     },
 ]
 
