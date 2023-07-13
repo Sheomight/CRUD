@@ -6,7 +6,7 @@
             <button class="navbar__btn" @click="logout">Log out</button>
         </div>
         <div class="navbar__btns" v-else>
-            <button class="navbar__btn" @click="$router.push('/login')">Login</button>
+            <button class="navbar__btn" @click="$router.push('/login')">Sign in</button>
             <button class="navbar__btn" @click="$router.push('/registration')">Registration</button>
         </div>
     </div>
@@ -25,7 +25,6 @@ export default {
     methods: {
         logout() {
             this.authorizationStore.userToken = null;
-            console.log(this.authorizationStore.userToken);
             router.push('/login');
         }
     },
@@ -48,6 +47,7 @@ export default {
     color: #fff;
     font-weight: 700;
     font-size: 22px;
+    cursor: pointer;
 }
 
 .navbar__btns {

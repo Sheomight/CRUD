@@ -1,17 +1,17 @@
 <template>
     <div>
-        <form class="form" @submit.prevent>
+        <form class="form" @submit.prevent="addNewUser">
             <div class="form__inner">
                 <h1 class="form__title">Add new user</h1>
                 <div class="form__group">
                     <label>Name</label>
-                    <input type="text" id="user-name" placeholder="Enter user name" v-model="user.name">
+                    <input type="text" id="user-name" placeholder="Enter user name" v-model="user.name" required>
                 </div>
                 <div class="form__group">
                     <label>e-mail</label>
-                    <input type="email" id="user-email" placeholder="Enter user e-mail" v-model="user.email">
+                    <input type="email" id="user-email" placeholder="Enter user e-mail" v-model="user.email" required>
                 </div>
-                <button @click="addNewUser">Add user</button>
+                <button>Add user</button>
             </div>
         </form>
     </div>
@@ -47,7 +47,6 @@ export default {
                 email: ''
             }
         },
-
     }
 }
 </script>
