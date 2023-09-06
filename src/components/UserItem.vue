@@ -6,19 +6,19 @@
         <td class="user__email">
             {{ user.email }}
         </td>
-        <td class="action-btn">
+        <td class="action-btns">
             <action-btn class="edit-btn" @click="editUser(user)">E</action-btn>
             <action-btn class="danger-btn" @click="$emit('remove', user)">D</action-btn>
         </td>
     </tr>
     <tr v-else class="user">
         <td class="user__name">
-            <input v-model="changedName">
+            <my-input class="user__input" v-model="changedName" />
         </td>
         <td class="user__email">
-            <input v-model="changedEmail">
+            <my-input class="user__input" v-model="changedEmail" />
         </td>
-        <td class="action-btn">
+        <td class="action-btns">
             <action-btn class="confirm-btn" @click="confirmEditing(user)">Ok</action-btn>
             <action-btn class="danger-btn" @click="stopEditing(user)">X</action-btn>
         </td>
@@ -28,10 +28,12 @@
 
 <script>
 import ActionButton from '@/components/UI/ActionButton.vue';
+import MyInput from '@/components/UI/MyInput.vue';
+
 
 export default {
     components: {
-        ActionButton
+        ActionButton, MyInput
     },
     props: {
         user: {
@@ -69,22 +71,20 @@ export default {
 
 <style  scoped>
 td {
+    height: 65px;
     border: 1px solid black;
     padding: 10px 20px;
 }
 
-input {
+.user__input {
     background-color: rgba(0, 0, 0, 0.1);
-    color: black;
-    border: none;
     border-bottom: 2px solid teal;
+    color: #000;
     width: 90%;
     height: 100%;
 }
 
-input:focus {
-    background-color: rgba(0, 0, 0, 0.2);
-    outline: none;
+.user__input:focus {
     border-bottom: 3px solid teal;
 }
 
@@ -101,11 +101,10 @@ input:focus {
     width: 45%;
 }
 
-.action-btn {
+.action-btns {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    align-content: center;
 }
 
 .danger-btn {

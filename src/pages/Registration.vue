@@ -3,17 +3,17 @@
         <div class="form__inner">
             <legend>Registration</legend>
             <label>Email</label>
-            <input type="email" placeholder="Enter your email" v-model="email">
+            <my-input type="email" placeholder="Enter your email" v-model="email" required />
             <label>Password</label>
-            <input type="password" placeholder="Create your password" v-model="password" :class="{
+            <my-input type="password" placeholder="Create your password" v-model="password" :class="{
                 'danger': hasError
-            }">
+            }" required />
             <label>Confirm your password</label>
-            <input type="password" placeholder="Repeat your password" v-model="passwordConfirm" :class="{
+            <my-input type="password" placeholder="Repeat your password" v-model="passwordConfirm" :class="{
                 'danger': hasError
-            }">
+            }" required />
             <span class="danger__text" v-if="hasError">Your passwords do not match</span>
-            <button @click="registration">Register</button>
+            <my-button @click="registration">Register</my-button>
             <span>Already have an account? <a class="hypertext-btn" @click="$router.push('/login')">Login
                     In</a></span>
         </div>
@@ -23,9 +23,13 @@
 <script>
 import router from '@/router/router';
 import { useAuthorizationStore } from '@/store/authorizationStore';
-
+import MyInput from '@/components/UI/MyInput.vue';
+import MyButton from '@/components/UI/MyButton.vue';
 
 export default {
+    components: {
+        MyInput, MyButton
+    },
     data() {
         return {
             email: '',
@@ -37,7 +41,7 @@ export default {
     },
     methods: {
         registration() {
-            if (this.password == this.passwordConfirm) {
+            if (this.password == this.passwordConfirm && (this.email && this.password && this.passwordConfirm)) {
                 this.loginStore.push({ email: this.email, password: this.password });
                 this.hasError = false
                 router.push('/login')
@@ -52,6 +56,10 @@ export default {
 legend {
     font-weight: 600;
     font-size: 24px;
+}
+
+input {
+    width: 80%;
 }
 
 .form {
@@ -73,26 +81,7 @@ legend {
     color: #fff;
 }
 
-input {
-    width: 80%;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.2);
-    border: none;
-    border-bottom: 2px solid rgb(0, 77, 200);
-    color: rgb(255, 255, 255);
-}
-
-input::placeholder {
-    color: #c8c8c8;
-}
-
-input:focus {
-    outline: none;
-    border-bottom: 5px solid rgb(0, 77, 200);
-
-}
-
-button {
+/* button {
     width: 150px;
     height: 50px;
     background-color: rgb(0, 53, 139);
@@ -105,7 +94,7 @@ button {
 button:hover {
     background-color: rgb(0, 16, 139);
     border: 1px solid rgb(0, 49, 139);
-}
+} */
 
 span {
     font-size: 14px;

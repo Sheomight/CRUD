@@ -2,12 +2,12 @@
     <div class="navbar">
         <div @click="$router.push('/')" class="navbar__title">CRUD</div>
         <div class="navbar__btns" v-if="authorizationStore.userToken">
-            <button class="navbar__btn" @click="$router.push('/usersbase')">Users list</button>
-            <button class="navbar__btn" @click="logout">Log out</button>
+            <my-button class="navbar__btn" @click="$router.push('/usersbase')">Users list</my-button>
+            <my-button class="navbar__btn" @click="logout">Log out</my-button>
         </div>
         <div class="navbar__btns" v-else>
-            <button class="navbar__btn" @click="$router.push('/login')">Sign in</button>
-            <button class="navbar__btn" @click="$router.push('/registration')">Registration</button>
+            <my-button class="navbar__btn" @click="$router.push('/login')">Sign in</my-button>
+            <my-button class="navbar__btn" @click="$router.push('/registration')">Registration</my-button>
         </div>
     </div>
 </template>
@@ -15,8 +15,13 @@
 <script>
 import router from '@/router/router';
 import { useAuthorizationStore } from '@/store/authorizationStore';
+import MyButton from '@/components/UI/MyButton.vue';
+
 
 export default {
+    components: {
+        MyButton
+    },
     data() {
         return {
             authorizationStore: useAuthorizationStore(),
@@ -57,20 +62,5 @@ export default {
     align-items: center;
     align-content: center;
     width: 20%;
-}
-
-.navbar__btn {
-    width: 150px;
-    height: 50px;
-    background-color: rgb(0, 53, 139);
-    border: 1px solid rgb(14, 95, 156);
-    border-radius: 15px;
-    color: white;
-    cursor: pointer;
-}
-
-.navbar__btn:hover {
-    background-color: rgb(0, 16, 139);
-    border: 1px solid rgb(0, 49, 139);
 }
 </style>

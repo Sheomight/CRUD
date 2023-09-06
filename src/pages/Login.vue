@@ -3,16 +3,16 @@
         <div class="form__inner">
             <legend>Sign in</legend>
             <label>Email</label>
-            <input type="text" placeholder="Enter your login" v-model="email" :class="{
+            <my-input placeholder="Enter your login" v-model="email" :class="{
                 danger: hasError
-            }">
+            }" />
             <label>Password</label>
-            <input type="password" placeholder="Enter your password" v-model="password" :class="{
+            <my-input type="password" placeholder="Enter your password" v-model="password" :class="{
                 danger: hasError
-            }">
+            }" />
             <span v-if="hasError" class="danger__text">Wrong email or password</span>
-            <button @click="logIn">Login in #1</button>
-            <button @click="authorization">Login in #2</button>
+            <my-button @click="logIn">Login in #1</my-button>
+            <my-button @click="authorization">Login in #2</my-button>
             <span>Don't have an account? <a class="hypertext-btn" @click="$router.push('/registration')">Register
                     here!</a></span>
         </div>
@@ -23,8 +23,14 @@
 import { useAuthorizationStore } from '@/store/authorizationStore';
 import router from '@/router/router';
 import axios from 'axios';
+import MyInput from '@/components/UI/MyInput.vue';
+import MyButton from '@/components/UI/MyButton.vue';
+
 
 export default {
+    components: {
+        MyInput, MyButton
+    },
     data() {
         return {
             email: 'john@mail.com',
@@ -36,7 +42,6 @@ export default {
     },
     methods: {
         authorization() {
-            // if (this.loginData.filter(user => JSON.stringify(user) == JSON.stringify({ email: this.email, password: this.password })).length > 0) {
             if (this.loginData.find(user => user.email == this.email) && this.loginData.find(user => user.password == this.password)) {
                 this.authorizationStore.userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNDM0NTY3ODkwIiwibmFtZSI6IlRlc3QgVXNlciIsImlhdCI6MTUxNjIzOTAyMn0.Z5nZb8tvEm2q4gkj2oDK2x2ZdxoBrkOz0SXE1OK5ScQ';
                 console.log(this.authorizationStore.userToken);
@@ -104,42 +109,12 @@ legend {
     font-size: 16px;
 }
 
-input {
-    width: 80%;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.2);
-    border: none;
-    border-bottom: 2px solid rgb(0, 77, 200);
-    color: rgb(255, 255, 255);
-}
-
-input::placeholder {
-    color: #c8c8c8;
-}
-
-input:focus {
-    outline: none;
-    border-bottom: 5px solid rgb(0, 77, 200);
-
-}
-
-button {
-    width: 150px;
-    height: 50px;
-    background-color: rgb(0, 53, 139);
-    border: 1px solid rgb(14, 95, 156);
-    border-radius: 15px;
-    color: white;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: rgb(0, 16, 139);
-    border: 1px solid rgb(0, 49, 139);
-}
-
 span {
     font-size: 14px;
+}
+
+input {
+    width: 80%;
 }
 
 .hypertext-btn {
