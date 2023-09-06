@@ -6,10 +6,13 @@
             <input type="email" placeholder="Enter your email" v-model="email">
             <label>Password</label>
             <input type="password" placeholder="Create your password" v-model="password" :class="{
-                'danger': this.password != this.passwordConfirm
+                'danger': hasError
             }">
             <label>Confirm your password</label>
-            <input type="password" placeholder="Repeat your password" v-model="passwordConfirm">
+            <input type="password" placeholder="Repeat your password" v-model="passwordConfirm" :class="{
+                'danger': hasError
+            }">
+            <span class="danger__text" v-if="hasError">Your passwords do not match</span>
             <button @click="registration">Register</button>
             <span>Already have an account? <a class="hypertext-btn" @click="$router.push('/login')">Login
                     In</a></span>
@@ -28,15 +31,17 @@ export default {
             email: '',
             password: '',
             passwordConfirm: '',
-            loginStore: useAuthorizationStore().loginData
+            loginStore: useAuthorizationStore().loginData,
+            hasError: false
         }
     },
     methods: {
         registration() {
             if (this.password == this.passwordConfirm) {
                 this.loginStore.push({ email: this.email, password: this.password });
+                this.hasError = false
                 router.push('/login')
-            }
+            } else this.hasError = true
         },
     }
 }
@@ -92,6 +97,7 @@ button {
     height: 50px;
     background-color: rgb(0, 53, 139);
     border: 1px solid rgb(14, 95, 156);
+    border-radius: 15px;
     color: white;
     cursor: pointer;
 }
@@ -107,6 +113,12 @@ span {
 
 .danger {
     background-color: indianred;
+}
+
+.danger__text {
+    color: rgb(223, 46, 46);
+    font-weight: 600;
+    font-size: 16px;
 }
 
 .hypertext-btn {

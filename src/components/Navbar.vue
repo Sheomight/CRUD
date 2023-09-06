@@ -6,7 +6,7 @@
             <button class="navbar__btn" @click="logout">Log out</button>
         </div>
         <div class="navbar__btns" v-else>
-            <button class="navbar__btn" @click="$router.push('/login')">Login</button>
+            <button class="navbar__btn" @click="$router.push('/login')">Sign in</button>
             <button class="navbar__btn" @click="$router.push('/registration')">Registration</button>
         </div>
     </div>
@@ -37,7 +37,7 @@ export default {
 .navbar {
     height: 70px;
     background-color: rgb(58, 148, 227);
-    box-shadow: 2px 2px 4px gray;
+    box-shadow: 2px 2px 4px rgb(52, 76, 148);
     display: flex;
     align-items: center;
     padding: 0 15px;
@@ -47,6 +47,7 @@ export default {
     color: #fff;
     font-weight: 700;
     font-size: 22px;
+    cursor: pointer;
 }
 
 .navbar__btns {
@@ -63,6 +64,7 @@ export default {
     height: 50px;
     background-color: rgb(0, 53, 139);
     border: 1px solid rgb(14, 95, 156);
+    border-radius: 15px;
     color: white;
     cursor: pointer;
 }

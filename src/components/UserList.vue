@@ -43,8 +43,9 @@ export default {
 .userlist {
     margin: 20px auto;
     width: 80%;
-    background-color: rgb(114, 229, 255);
+    background-color: rgb(114 172 255);
     border: 2px solid black;
+    border-spacing: 0;
 }
 
 td {

@@ -16,11 +16,11 @@ export default {
     height: 35px;
     color: #fff;
     cursor: pointer;
-    border: 1px solid gray;
-    box-shadow: 2px 2px 2px darkgrey;
+    border: 1px solid rgb(42, 42, 42);
+    box-shadow: 2px 2px 2px rgb(60, 60, 60);
 }
 
 .btn:hover {
-    box-shadow: inset 2px -2px 5px darkgrey;
+    box-shadow: inset 0px 0px 2px 1px rgb(60, 60, 60);
 }
 </style>
